@@ -21,6 +21,9 @@ def env(name, default=None, cast=str):
 SECRET_KEY = env("DJANGO_SECRET_KEY", "dev-only-insecure-key-change-me")
 DEBUG = env("DJANGO_DEBUG", True, bool)
 ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS", "*").split(",")
+# Django's default ("same-origin") strips the Referer from map tile requests,
+# and tile servers reject browser requests without one.
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 INSTALLED_APPS = [
     "django.contrib.admin",
